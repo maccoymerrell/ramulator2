@@ -38,6 +38,14 @@ struct ReqBuffer {
   explicit ReqBuffer(size_t max_size = 32) : max_size(max_size) {
   }
 
+  using const_iterator = std::list<Request>::const_iterator;
+  const_iterator begin() const {
+    return buffer.begin();
+  }
+  const_iterator end() const {
+    return buffer.end();
+  }
+
   using iterator = std::list<Request>::iterator;
   iterator begin() {
     return buffer.begin();

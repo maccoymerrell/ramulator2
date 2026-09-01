@@ -44,6 +44,13 @@ class ControllerBase : public IController, public Implementation {
   void finalize() override;
   void reset_stats() override;
 
+  // Read-only views for measurement plugins. The scheduler picks at most one
+  // timing-ready request per tick, so "queue deep but nothing issued" is only
+  // diagnosable from inside the buffer.
+  const ReqBuffer& peek_read_buffer() const { return m_read_buffer; }
+  const ReqBuffer& peek_write_buffer() const { return m_write_buffer; }
+  const ReqBuffer& peek_active_buffer() const { return m_active_buffer; }
+
  protected:
   ControllerBase(const ConfigNode& config, Implementation* parent)
       : Implementation(config, "controller", "ControllerBase", parent) {
